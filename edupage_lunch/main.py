@@ -3,12 +3,12 @@ from dotenv import load_dotenv
 from .utils import EdupageUser
 from .order import order_weeks
 
-load_dotenv()
+load_dotenv(".env")
 
-WEEKS_COUNT = 2  # How many weeks to order lunch for
-username = os.getenv("USERNAME")
-password = os.getenv("PASSWORD")
-subdomain = os.getenv("SUBDOMAIN")
+WEEKS_COUNT = 1  # How many weeks to order lunch for
+username = os.getenv("EDUPAGE_USERNAME")
+password = os.getenv("EDUPAGE_PASSWORD")
+subdomain = os.getenv("EDUPAGE_SUBDOMAIN")
 
 if username == None or password == None or subdomain == None:
     print("Set env variables")
