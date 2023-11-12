@@ -9,7 +9,7 @@ def getDay(date: datetime, day: int) -> datetime:
     return date + timedelta(days=(day - date.weekday()) % 7)
 
 
-def order_weeks(user: EdupageUser, weeks: int):
+def order_lunch(user: EdupageUser, weeks: int):
     edupage = Edupage()
     edupage.login(user.username, user.password, user.subdomain)
 
@@ -23,4 +23,4 @@ def order_weeks(user: EdupageUser, weeks: int):
             except:
                 pass
             date += timedelta(days=1)
-            sleep(0.5)
+            sleep(0.2)
