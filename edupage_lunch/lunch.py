@@ -5,9 +5,13 @@ from edupage_api import EdupageModule
 from datetime import datetime
 
 
-def get_boarder_id(edupage: EdupageModule, date: datetime):
-    date_strftime = date.strftime("%Y%m%d")
-    request_url = f"https://{edupage.subdomain}.edupage.org/menu/?date={date_strftime}"
+def get_boarder_id(edupage: EdupageModule, date: datetime | None = None):
+    if date:
+        date_strftime = date.strftime("%Y%m%d")
+        request_url = f"https://{edupage.subdomain}.edupage.org/menu/?date={date_strftime}"
+    else:
+        request_url = f"https://{edupage.subdomain}.edupage.org/menu"
+
     response = edupage.session.get(request_url).content.decode()
 
     lunch_data = orjson.loads(response.split("edupageData: ")[1].split(",\r\n")[0])

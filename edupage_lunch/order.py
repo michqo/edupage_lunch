@@ -5,17 +5,17 @@ from .lunch import Lunch, get_boarder_id
 from .utils import EdupageUser
 
 
-def getDay(date: datetime, day: int) -> datetime:
-    return date + timedelta(days=(day - date.weekday()) % 7)
+def get_monday(date: datetime) -> datetime:
+    return date + timedelta(days=(0 - date.weekday()) % 7)
 
 
 def order_lunch(user: EdupageUser, weeks: int):
     edupage = Edupage()
     edupage.login(user.username, user.password, user.subdomain)
+    boarder_id = get_boarder_id(edupage)
 
-    for _ in range(weeks):
-        date = getDay(datetime.now() + timedelta(weeks=weeks - 1), 0)
-        boarder_id = get_boarder_id(edupage, date)
+    for i in range(weeks):
+        date = get_monday(datetime.now() + timedelta(weeks=i))
         lunch = Lunch(edupage, boarder_id)
         for _ in range(5):
             try:
