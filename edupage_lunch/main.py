@@ -22,5 +22,5 @@ if __name__ == "__main__":
     try:
         order_lunch(user, weeks_count)
         print("Successfully ordered lunch")
-    except:
-        print("Error occured while ordering lunch")
+    except Exception as e:
+        print(f"Error occured while ordering lunch: {e}")

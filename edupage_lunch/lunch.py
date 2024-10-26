@@ -1,3 +1,4 @@
+import json
 import orjson
 from dataclasses import dataclass
 from edupage_api.exceptions import FailedToChangeLunchError, InvalidLunchData
@@ -10,17 +11,17 @@ def get_boarder_id(edupage: EdupageModule, date: datetime | None = None):
         date_strftime = date.strftime("%Y%m%d")
         request_url = f"https://{edupage.subdomain}.edupage.org/menu/?date={date_strftime}"
     else:
-        request_url = f"https://{edupage.subdomain}.edupage.org/menu"
+        request_url = f"https://{edupage.subdomain}.edupage.org/menu/"
 
     response = edupage.session.get(request_url).content.decode()
 
-    lunch_data = orjson.loads(response.split("edupageData: ")[1].split(",\r\n")[0])
+    lunch_data = json.loads(response.split("edupageData: ")[1].split(",\r\n")[0])
     lunches_data = lunch_data.get(edupage.subdomain)
 
     try:
         boarder_id = lunches_data.get("novyListok").get("addInfo").get("stravnikid")
     except AttributeError as e:
-        raise InvalidLunchData(f"Missing boarder id: {e}")
+        raise InvalidLunchData(f"Error retrieving boarder id: {e}")
 
     return boarder_id
 

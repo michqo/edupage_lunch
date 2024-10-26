@@ -6,7 +6,7 @@ authors = ["michqo"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 black = "^23.3.0"
 edupage-api = {git = "https://github.com/ivanhrabcak/edupage-api.git"}
 orjson = "^3.9.1"
